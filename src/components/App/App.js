@@ -8,14 +8,15 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      urls: []
+      urls: [],
+      error: ''
     }
   }
 
   componentDidMount() {
     getUrls()
     .then(data => this.setState({ urls: data.urls }))
-    .catch(error => console.log(error))
+    .catch(error => this.setState({ error: 'Something went wrong with the server. Please refresh the page or try again later' }))
   }
 
   addUrl = (newUrl) => {
@@ -43,6 +44,7 @@ export class App extends Component {
 
         <UrlContainer
           urls={this.state.urls}
+          error={this.state.error}
           removeUrl={this.removeUrl}
         />
 

@@ -15,7 +15,9 @@ const UrlContainer = props => {
 
   return (
     <section>
-      { urlEls.length ? urlEls : <p>No urls yet! Find some to shorten!</p> }
+      { props.error && <p>{props.error}</p> }
+      { !urlEls.length && !props.error && <p>No urls yet! Find some to shorten!</p> }
+      { urlEls.length && !props.error ? urlEls : null }
     </section>
   )
 }
