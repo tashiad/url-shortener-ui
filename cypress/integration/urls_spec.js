@@ -54,7 +54,7 @@ describe('Urls Homepage', () => {
   })
 
   it('Should be able to delete a URL', () => {
-    cy.intercept('http://localhost:3001/api/v1/urls/4', {statusCode: 204})
+    cy.intercept('DELETE', 'http://localhost:3001/api/v1/urls/4', {statusCode: 204})
     cy.get('.delete-button').eq(1).click()
     cy.get('.url').eq(1).should('not.exist')
   })
