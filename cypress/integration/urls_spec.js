@@ -67,6 +67,18 @@ describe('Urls Homepage', () => {
     cy.get('.url').contains('Test 3')
   })
 
+  it('Should not be able to submit the form unless all fields have been filled out', () => {
+    cy
+      .fixture('shortened-urls')
+      .then(urls => {
+        cy.intercept('GET', 'http://localhost:3001/api/v1/urls', { body: urls })
+      })
+    cy.visit('http://localhost:3000')
+    cy.get('form input[name=title]').type('Test 3').should('have.value', 'Test 3')
+    cy.get('form input[name=long_url]')
+    cy.get('button[name="submit"]').should('be.disabled')
+  })
+
   it('Should display an error message when the server returns a 400 error', () => {
   cy
     .intercept('http://localhost:3001/api/v1/urls', {statusCode: 404})
