@@ -79,6 +79,18 @@ describe('Urls Homepage', () => {
     cy.get('button[name="submit"]').should('be.disabled')
   })
 
+  it.skip('Should be able to delete a URL', () => {
+    cy
+      .fixture('shortened-urls')
+      .then(urls => {
+        cy.intercept('GET', 'http://localhost:3001/api/v1/urls', { body: urls })
+      })
+    cy.visit('http://localhost:3000')
+    cy.intercept('http://localhost:3001/api/v1/urls/4', {statusCode: 204})
+    cy.get('.delete-button').eq(1).click()
+    cy.get('.url').eq(1).should('not.exist')
+  })
+
   it('Should display an error message when the server returns a 400 error', () => {
   cy
     .intercept('http://localhost:3001/api/v1/urls', {statusCode: 404})

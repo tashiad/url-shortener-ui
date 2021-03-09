@@ -26,9 +26,7 @@ export class App extends Component {
   }
 
   removeUrl = (id) => {
-    console.log(id);
     deleteUrl(id)
-    .then((data) => console.log(data))
     .then(data => this.setState({ urls: data.urls }))
     .catch(error => console.log(error))
   }
