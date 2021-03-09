@@ -13,6 +13,15 @@ export const postUrl = (newUrl) => {
 }
 
 export const deleteUrl = (id) => {
-  return fetch(`http://localhost:3001/api/v1/urls/${id}`, { method: 'DELETE' })
-    .then(response => response.json())
+  return fetch(`http://localhost:3001/api/v1/urls/${id}`, {
+    method: 'DELETE',
+    headers: {'Content-type': 'application/json'}
+  })
+  .then(res => {
+    if (!res.ok) {
+        throw new Error('Something went wrong')
+    } else {
+        return 'success!'
+    }
+  })
 }

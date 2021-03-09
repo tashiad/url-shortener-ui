@@ -26,9 +26,9 @@ export class App extends Component {
   }
 
   removeUrl = (id) => {
+    const filteredUrls = this.state.urls.filter(url => url.id !== id)
+    this.setState({ urls: filteredUrls })
     deleteUrl(id)
-    .then(data => this.setState({ urls: data.urls }))
-    .catch(error => console.log(error))
   }
 
   render() {
